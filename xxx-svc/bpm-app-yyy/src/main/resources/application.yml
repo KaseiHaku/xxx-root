@@ -1,0 +1,25 @@
+
+
+################################ Spring ################################
+
+spring:
+  datasource:
+    url: jdbc:postgresql://sp-pgsql:15432/bpm
+    username: root
+    password: root
+
+
+com:
+  kaseihaku:
+    bpm:
+      starter:
+        ppe:
+          mode: dev
+          render:
+            engine:
+              pojo:
+                extra-anno-exclude-prefixes: [ddh]
+
+################################ Mybatis ################################
+# 当前框架 mybatis 默认配置参见 boot-starter-mybatis-1.0.0.jar!com/kaseihaku/boot/starter/mybatis/config/application-mybatis.yml
+#
