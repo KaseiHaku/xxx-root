@@ -12,7 +12,6 @@ x-logging: &x-logging
     max-file: "2"       # 必须是字符串，即: 引号包含
 
 # 扩展字段：各镜像版本
-x-consul-img: &x-consul-img consul:1.15.2
 # openjdk 的镜像只能用到 java17,
 # 要使用之后的版本，例如 java21 可以使用镜像 [eclipse-temurin, amazoncorretto] 替代 openjdk
 x-jdk-img: &x-jdk-img openjdk:17-oraclelinux8
@@ -105,8 +104,8 @@ services:
       <<: *x-environment
     ports: [ 9100:9100, 5008:5005 ]
     volumes:
-      - ../../core/core-infra/target/core-infra-${KH_PROJECT_VERSION:?err}-agent.jar:/opt/core-infra-agent.jar
-      - ../../bpm-svc/bpm-app-one/target/bpm-app-one-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
+      - ./core/core-infra/target/core-infra-${KH_PROJECT_VERSION:?err}-agent.jar:/opt/core-infra-agent.jar
+      - ./xxx-svc/bpm-app-one/target/bpm-app-one-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
       - ${BASE_PATH:-.}/log:/var/log
     working_dir: /opt
     extra_hosts: *x-extra-hosts

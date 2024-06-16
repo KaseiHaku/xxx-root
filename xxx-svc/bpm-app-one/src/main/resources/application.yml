@@ -4,9 +4,9 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://sp-pgsql:15432/bpm
-    username: root
-    password: root
+    url: jdbc:postgresql://pgsql-primary:5432/bpm
+    username: k8s_rw
+    password: k8s_rw
 
 
 com:

@@ -96,121 +96,15 @@ x-deploy-resources-max: &x-deploy-resources-max
 
 services:
 
-
-  cloud-config:
-    image: *x-jdk-img
-    environment:
-      <<: *x-environment
-    ports: [ 8888:8888 ]
-    network_mode: host
-    volumes:
-      - ../../cloud-svc/cloud-config/target/cloud-config-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
-      - ../../cloud-svc/cloud-config/src/main/resources:/opt/resources
-      - ${BASE_PATH:-.}/log:/var/log
-    depends_on: [  ]
-    extra_hosts: *x-extra-hosts
-    command: *x-command
-    deploy:
-      resources: *x-deploy-resources-mid
-
-  cloud-user:
-    image: *x-jdk-img
-    environment:
-      <<: *x-environment
-    ports: [ 8410:8410, 5007:5005 ]
-    network_mode: host
-    volumes:
-      - ../../core/core-infra/target/core-infra-${KH_PROJECT_VERSION:?err}-agent.jar:/opt/core-infra-agent.jar
-      - ../../cloud-svc/cloud-user/target/cloud-user-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
-      - ${BASE_PATH:-.}/log:/var/log
-    working_dir: /opt
-    depends_on: [ ]    # 还须依赖: neo4j
-    extra_hosts: *x-extra-hosts
-    command: *x-command-agent
-    deploy:
-      resources: *x-deploy-resources-mid
-
-  cloud-oauth-server:
-    image: *x-jdk-img
-    environment: &x-cloud-oauth-server-env
-      <<: *x-environment
-      #AS_BASE_URL: http://as.kaseihaku.com     # 实际 prod 环境指向 nginx 公网域名
-    ports: [ 8900:8900, 5009:5005 ]
-    network_mode: host
-    volumes:
-      - ../../cloud-svc/cloud-oauth-server/target/cloud-oauth-server-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
-      - ${BASE_PATH:-.}/log:/var/log
-    working_dir: /opt
-    extra_hosts: *x-extra-hosts
-    command: *x-command
-
-  cloud-oidc-rp:
-    image: *x-jdk-img
-    environment:
-      <<: *x-cloud-oauth-server-env   # 两容器的 AS_BASE_URL 环境变量要保持一致
-    ports: [ 8910:8910, 5010:5005 ]
-    network_mode: host
-    volumes:
-      - ../../cloud-svc/cloud-oidc-rp/target/cloud-oidc-rp-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
-      #- ./cloud-oidc-rp/application-own.yml:/opt/application-own.yml   # 需要覆盖 jar 中默认配置时，挂载该配置文件
-      - ${BASE_PATH:-.}/log:/var/log
-    working_dir: /opt
-    extra_hosts: *x-extra-hosts
-    command: *x-command
-
-  cloud-gateway:
-    image: *x-jdk-img
-    environment:
-      <<: *x-environment
-    ports:
-      - 8999:8999
-      - 5005:5005   # JVM Remote Debug 连接端口
-    network_mode: host
-    volumes:
-      - ../../cloud-svc/cloud-gateway/target/cloud-gateway-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
-      - ${BASE_PATH:-.}/log:/var/log
-    depends_on: [ cloud-user ]
-    extra_hosts: *x-extra-hosts
-    command: *x-command
-    deploy:
-      resources: *x-deploy-resources-mid
-
-  cloud-file:
-    image: *x-jdk-img
-    environment:
-      <<: *x-environment
-    ports: [ 8420:8420, 5006:5005 ]
-    network_mode: host
-    volumes:
-      - ../../cloud-svc/cloud-file/target/cloud-file-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
-      - ${BASE_PATH:-.}/log:/var/log
-      - ${BASE_PATH:-.}/fileUpload:/opt/fileUpload
-    extra_hosts: *x-extra-hosts
-    command: *x-command
-
   bpm-app-one:
     image: *x-jdk-img
     environment:
       <<: *x-environment
     ports: [ 9100:9100, 5008:5005 ]
-    network_mode: host
+    #network_mode: host
     volumes:
-      - ../../core/core-infra/target/core-infra-${KH_PROJECT_VERSION:?err}-agent.jar:/opt/core-infra-agent.jar
-      - ../../bpm-svc/bpm-app-one/target/bpm-app-one-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
-      - ${BASE_PATH:-.}/log:/var/log
-    working_dir: /opt
-    extra_hosts: *x-extra-hosts
-    command: *x-command-agent
-
-  cloud-notice:
-    image: *x-jdk-img
-    environment:
-      <<: *x-environment
-    ports: [ 8430:8430, 5013:5005]
-    network_mode: host
-    volumes:
-      - ../../core/core-infra/target/core-infra-${KH_PROJECT_VERSION:?err}-agent.jar:/opt/core-infra-agent.jar
-      - ../../cloud-svc/cloud-notice/target/cloud-notice-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
+      - ../../core/core-infra/target/core-infra-${KH_PROJECT_VERSION:?err}-agent.jar:/opt/core-infra-agent.jar  # 该包从 maven 仓库中获取
+      - ../../xxx-svc/bpm-app-one/target/bpm-app-one-${KH_PROJECT_VERSION:?err}.jar:/opt/app.jar
       - ${BASE_PATH:-.}/log:/var/log
     working_dir: /opt
     extra_hosts: *x-extra-hosts

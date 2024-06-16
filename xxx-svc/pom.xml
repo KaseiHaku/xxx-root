@@ -14,7 +14,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>bpm-app-yyy</module><!-- 流程引擎应用 -->
+    <module>bpm-app-one</module><!-- 流程引擎应用 -->
   </modules>
 
 

@@ -11,12 +11,12 @@ PPE 相关的 Role 划分建议: (注意：以下缩进代表父组，跟 Group 
         -> bpm-app-one:admin         # 流程管理员角色
 
 开发一个新的 PPE APP 的步骤:
-    - 按照 bpm-app-one 的目录结构，新建一个 boot 项目
+    - 按照 bpm-app-one 的目录结构，新建一个 boot 项目，项目名/包名 修改称自己公司的
       例如:
         bpm-app-yyy/src/mainjava
             │
             ├─ java
-                ├─ aa.bb.cc.dd
+                ├─ com.xxx.bpm.app.yyy
                     ├─ XxxBoot.java         # java 启动类
                     ├─ config               # boot 自定义配置根包，包含 配置类
                         ├─ bean             # boot 自定义 bean 根包
