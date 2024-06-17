@@ -10,7 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.xxx</groupId>
-  <artifactId>xxx-root</artifactId>
+  <artifactId>kh-root-xxx</artifactId>
   <version>1.0.0</version><!-- 当前代码库 version 版本自治，不使用 父 POM 的版本 -->
   <packaging>pom</packaging>
 
