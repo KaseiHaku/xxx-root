@@ -3,6 +3,10 @@
 /.idea/
 /**/*.iml
 
+# 排除掉 telepresence intercept 开发用的环境变量文件
+deploy/dev/.env
+deploy/dev/pvt/
+
 ################################ Server ################################
 # 排除掉任何名为 out 的目录，out 为 IDEA 的默认编译输出目录
 /**/out/
@@ -25,9 +29,7 @@
 /demo/demo-mvc/src/main/java/com/kaseihaku/demo/mvc/**
 !/demo/demo-mvc/src/main/java/com/kaseihaku/demo/mvc/DemoMvcBoot.java
 
-# 排除掉 telepresence intercept 开发用的环境变量文件
-deploy/dev/.env
-deploy/dev/pvt/
+
 
 
 

@@ -98,7 +98,7 @@ x-deploy-resources-max: &x-deploy-resources-max
 
 services:
 
-  bpm-app-yyy:
+  bpm-app-one:
     image: *x-jdk-img
     environment:
       <<: *x-environment
